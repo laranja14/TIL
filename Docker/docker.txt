@@ -1,0 +1,11 @@
+/ # docker stack deploy -c /stack/my-app.yml my_app
+Creating service my_app_api
+Creating service my_app_nginx
+/ # docker stack deploy -c /stack/my-frontend.yml my_frontend
+Creating service my_frontend_nginx
+Creating service my_frontend_web
+/ # docker stack deploy -c /stack/my-ingress.yml my_ingress
+Creating service my_ingress_haproxy
+/ # docker stack deploy -c /stack/my-mysql.yml my_mysql
+Creating service my_mysql_slave
+Creating service my_mysql_master
