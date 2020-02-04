@@ -864,5 +864,164 @@ C:\javascript>npm install jquery-colorbox
 
 ```
 
+①$("ㅁㅁ")		②.css()			③.each(function(index,item){.....});  ④.click(function(){...});   ⑤$.ajax
+
+​							.text()
+
+​							.html()
+
+​							.attr()
+
+​							.val()
+
+⑥UI, plugin (toast) - 라이브러리 활용
 
 
+
+
+
+CORS 는 SOP 정책을 완화하는 정책
+
+오리진이 다른곳(다른사이트)의 자료를 가지고 오면 브라우저가 막아버린다.
+
+플러그인을 통해서 해결 가능하다.
+
+
+
+
+
+
+
+
+
+LAB사이트 미리 보기를 제작
+
+jquery UI에서 제공하는 TAB 위젯을 이용
+
+미리 보기 사이트 명과 주소(URL)은 ajax 통신으로 가져오기
+
+/preview.html ⇒ 미리 보기 사이트
+
+/siteinfo.html ⇒ 미리 보기 사이트 명과 주소를 포함한 JSON 형식의 파일
+
+
+
+https://chrome.google.com/webstore/category/extensions?hl=koAllow CORS: Access-Control-Allow-Origin 확장 프로그램 설치
+
+
+
+``` html
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="node_modules/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="node_modules/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+    <script src="node_modules/jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="node_modules/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script>
+        $(function() {
+          
+            // 서버로 부터 미리보기(이름, 주소) 정보를 가져와서 출력
+
+            $.ajax({
+              url: "http://localhost:8080/siteinfo.html", 
+              type: "GET", // 디폴트값이 GET이라 안써도 무관
+              dataType: "json"
+            })
+            .done(data => {
+              data.siteinfos.forEach(site => {
+                let name = site.name;
+                let url = site.URL;
+                //서버로 부터 받은 데이터로 사이트를 구성
+                let id = $('li').length +1;
+                let li = `<li><a href="#tab${id}" url="${url}">${name}</a></li>`;
+                let div = `<div id="tab${id}">탭내용${name}</div>`;
+
+                $('#tabs > ul').append(li);
+                $('#tabs').append(div);
+              });
+                //   탭 위젯을 생성
+              $("#tabs").tabs();
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+              console.log(errorThrown);              
+            });
+
+            // $('a').click(function() {
+            //   let href = $(this).attr("href");
+            //   console.log(href);
+            // });
+
+            $('#tabs').on('click', 'a', function(){   // .on 중요
+              let href = $(this).attr('href');
+              let url = $(this).attr("url");
+              $(href).load(url);
+            });
+
+            $('a:first').trigger('click');
+          
+            // $('#tabs a').click(function(){
+            //   $('#tabs div').hide();
+            //   $('#tabs div'+divid).show();
+            // });
+        });
+    </script>
+    <style>        
+    </style>
+</head>
+<body>    
+    <!-- 탭 UI를 적용할 태그 -->
+    <div id="tabs">
+        <!-- 탭 제목 -->
+        <ul>
+        </ul>
+        <!-- 탭 본문 -->
+
+    </div>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+f
