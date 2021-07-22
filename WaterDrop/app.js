@@ -1,5 +1,5 @@
 var items = document.querySelectorAll(".item"),
-    maxBorderPercent = 80,
+    maxBorderPercent = 75,
     minBorderPercent = 50,
     borderNumArray = [];
 
@@ -25,5 +25,3 @@ function styleChange(num) {
 for (let i = 0; i < items.length; i++) {
     styleChange(i);
 }
-
-alert(Math.floor(Math.random()*10))
